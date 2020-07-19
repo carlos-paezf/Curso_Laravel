@@ -1,0 +1,114 @@
+Laravel es un framework que utiliza la arquitectura MVC (Model View Controller). El modelo realiza las peticiones a la base de datos, la vista son los documentos
+elegantes que ve el usuario final (formularios, registros....), el controlador es aquel que sirve de intermediario entre la vista y el modelo. Estos conceptos nos
+llevan a la modularizacion y a P.O.O. Los usuarios finales interactuan con la vista y por medio de opciones enviara una peticion la cual sera lanzada al controlador
+el cual hara una demanda de datos al modelo, el cual envia los datos solicitados al controlador y este envia la respuesta al usuario en forma de vista. 
+
+Para proceder a la instalacion tenemos 2 alternativas: 1) Instalar servidor web + php + gestor BBDD + Laravel + software adicional.  2) Virtualizar: VirtualBox, 
+Vagrant, Homestead, software adicionales. Con la primera alternativa se presentan los inconvenientes con el trabajo grupal, ya sea por versionamiento, por las 
+herramientas, cambios inesperados en el codigo, etc. Para este proyecto tomaremos la segunda alternativa, instalacion virtual. 
+
+Podemos acceder al entorno de virtualbox desde el Git Bash con el comando:
+
+	vboxmanage --version. 			(1)
+
+Si la consola no reconoce el comando, debemos agregarla como variable de entorno, accediendo a las propiedades de Equipo --> Configuracion avanzada del sistema --> 
+Variables de entorno --> Variable de usuario --> Path --> Editar --> Nuevo --> (Ubicación del directorio donde esta guardado VirtualBox) --> Aceptar --> Aceptar 
+--> Aceptar. 
+Para comprobar la version instalada de Vagrant, ingresamos el siguiente comando 	
+	
+	vagrant --version			(2)
+
+Procedemos a la instalacion del box Laravel/Homestead ingresando el siguiente comando:
+
+	vagrant box add laravel/homestead	(3)
+
+Posteriormente clonamos el repositorio desde git para homestead en nuestro directorio de usuario con el comando:
+
+	git clone https://github.com/laravel/homestead.git Homestead		(4)
+
+Nos dirigimos al directorio de Homestead con el Bash y abrimos el archivo init.sh con el comando:
+
+	bash init.sh				(5)
+
+Vamos a cambiar la configuracion del archivo Homestead.yaml en la cual aparecen varios datos importantes como las llaves o claves de encriptacion (publicas .pub y 
+privadas). Si es la primera vez que se realiza el proceso anterior, no estaran las carpetas .ssh por lo cual las crearemos con el Git Bash usando el comando:
+
+	ssh-keygen -t rsa -b 4096 -C "<en mi caso use mi correo como label>"	(6)
+
+Gracias a ese comando logramos crear las 2 claves ssh, la publica y la privada. Para eliminarlas ingresamos los comandos (privada y publica respectivamente): 
+
+	rm -rf id_rsa				(7)
+	rm -rf id_rsa.pub			(8)
+
+Para ejecutar el vagrant ingresamos al directorio de Homestead e ingresamos el comando:
+
+	vagrant up 				(9)
+
+Para comprobar si esta habilitado el ssh ingresamos el comando:
+
+	vagrant ssh 				(10)
+
+Para suspender la conexion con el vagrant ingresamos el comando:
+
+	vagrant suspend				(11)
+
+Para apagar la maquina usamos el comando:
+
+	vagrant halt				(12)
+
+Antes de instalar Laravel instalamos Composer con el instalador y reiniciamos el equipo. Para comprobar que se haya instalado correctamente hacemos los siguiente:
+Equipo --> Configuracion avanzada del sistema --> Variables de entorno --> Variable de usuario --> Path --> Editar y buscar donde este la variable con Composer. Ahora
+para instalar Laravel nos dirigimos al directorio de Homestead y usamos el comando (9) para levantar la maquina virtual. Luegos nos validamos con el ssh con el 
+comando (10) y alli dentro ingresamos a la carpeta 'code' ubicada en el directorio contenedor del directorio Homestead. Ingresamos el comando:
+
+	composer create-project laravel/laravel <nombreArchivo>		(13)
+
+Luego de crear el proyecto modificamos el archivo host. Para ellos aplicamos los siguientes pasos: nos dirigimos a C:/Windows/System32/drives/etc, alli abrimos el 
+archivo host con permisos de administrador desde el bloc de notas, en la ultima linea agregamos la IP que aparece en el archivo Homestead.yaml y la registramos 
+bajo el nombre de homestead.test y reiniciamos el equipo. 
+
+Para hacer la instalacion desde Laravel installer, ingresamos el siguiente comando: 
+
+	composer global require "laravel/installer"			(14)
+
+Y luego creamos un blog mediante el comando:
+
+	laravel new <nombreArchivo>
+
+		-------------------------------------------------------------------------------------------------------------------
+	       |   Cada vez que vayamos a trabajar en nuestro proyecto, requerimos ejecutar el comando (9) en nuestro Git Bash	   |
+		-------------------------------------------------------------------------------------------------------------------
+
+Las rutas que se modifican usalmente estan en el archivo <Proyecto>/routes/web.php
+Una ruta consta de las siguientes partes: <ClaseRoute>Route::<metodoEstático>get ('<Url>',<funcionAnonima>function(){return view('<direccion>');}); y sin explicacion 
+se ve asi:	Route::get('/', function() { return view(''); });
+Las rutas permiten pasar simples cadenas de texto, vistas con formularios e incluso tienen la capacidad de recibir parametros en su estructura. Los parametros pueden 
+tener restricciones de todo tipo. Comunmente se generan en un patron para ser reutilizadas facilmente en las rutas que se necesitan, a eso se le llama Restricciones
+Globales. 
+
+Los controladores los podemos encontrar en el archivo <Proyecto>/app/Http/Controllers. Cuando creamos nuestros propios controladores, por convencion hacemos uso del 
+formato de nomenclatura <Funcionalidad>Controller.php. Para crear un controlador en el directorio de nuestro proyecto, ingresamos en el Bash el siguiente comando:
+
+	php artisan make:controller <Nombre>Controller			(15)
+
+Para enlazar el controlador con nuestras rutas, ingresamos al archivo <Proyecto>/routes/web.php y creamos una ruta con la estructura 
+<ClaseRoute>Route::<metodoEstático>get ('<Url>','<NombreController>@<funcion>');    Tambien podemos crear controladores con recursos basicos con el comando en Bash:
+
+	php artisan make:controller --resource <Nombre>Controller	(16)
+
+Las vistas las encontramos en el archivo <Proyecto>/resources/views, desde alli podemos realizar los cambios que sean necesarios. Comunmente su extension es .blade.php
+Si queremos ver todas las URLs creadas, podemos escribir en consola el comando:
+
+	php artisan route:list
+
+En ocasiones, cada vez que creamos un nuevo proyecto, ademas de definirlo en el sector "sites" del archivo Homestead.yaml, debemos ingresar un comando en consola para
+permitir que la maquina virtual reconozca la nueva direccion, cualquiera de los comandos siguientes debe hacer efecto:
+
+	vagrant up --provision
+	vagrant reload --provision
+
+Ahora bien, cuando queremos agregar formatos Bootstrap a nuestro proyecto, podemos ingresar a la pagina oficial y copiar los enlaces para mantener el formato en linea,
+o descargar las librerias y agregarlas al proyecto y de esta forma tener la interaccion constante con el proyecto. Tambien, en la pagina oficial encontramos una gran
+variedad de ejemplos de componentes, que nos permiten entender el funcionamiento de los mismos. 
+
+Blade es un motor o constructor de plantillas incluido en Laravel, permite crear vista de manera facil y sencilla, se reutiliza el codigo y se usa la modularizacion.
