@@ -133,7 +133,7 @@ Homestead.yaml agregando un nuevo site con su respetivo map y to. Luego configur
 agregamos una nueva url con el nombre phpmyadmin pero con la misma ip de homestead.test. Luego ejecutamos el comando (18a).
 Para crear nuestro propio archivo migrate, ingresamos el siguiente comando:
 
-	vagrant@homestead:~/code/<Proyecto>$ php artisan make:migration create_<nombre_tabla>_table --create=<nombreTabla>			(22)
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:migration create_<nombre_tabla>_table --create="<nombreTabla>"			(22)
 
 Desde dicho archivo migrate, podemos crear los campos que queremos que aparezcan en la BBDD. Para retrodecer un paso en la migracion y deshacerla, ya sea para agregar
 o modificar algun campo, mientras la tabla este sin registros, ingresamos el siguiente comando:
@@ -142,7 +142,7 @@ o modificar algun campo, mientras la tabla este sin registros, ingresamos el sig
 
 Si queremos agregar un nuevo campo en la tabla que tiene elementos, debemos crear un nuevo archivo de migracion para modificiacion con el comando:
 
-	vagrant@homestead:~/code/<Proyecto>$ php artisan make:migration <nombre_distintivo_> --table=<nombreTabla>				(23)
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:migration <nombre_distintivo_> --table="<nombreTabla>"				(23)
 
 Si queremos eliminar todas las migraciones ingresamos el comando:
 
@@ -162,3 +162,15 @@ usuario y la base de datos. ORM (Mapeo Objeto Relacional o Object-Relational Map
 
 Para manipular los registros por medio de Row SQL Query, debemos ingresar una nueva ruta, acompañada de una funcion anonima, en la cual se hara uso de la interfaz DB, 
 pasando los parametros requeridos dentro de un array.
+
+Para hacer uso de Eloquent, debemos tener en cuenta que por cada tabla de nuestra base de datos, existira un model con propiedades y metodos que nos permiten manipular 
+nuestros registros. Para crear un model, ingresamos el siguiente comando en el Bash:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:model <NombreModeloSingular>		(27)
+
+Las clases Model se encuentran en el directorio <Proyecto>/app/. Para ver unos ejemplos de como funciona eloquent, creamos unas rutas que apliquen POO, para ello 
+debemos primero llamar la clase, por medio de la linea 'use App\<NombreModel>'. Para hacer consultas con diferentes restricciones, Laravel nos ofrece en su 
+documentacion un listado de metodos que podemos emplear. Al intentar borrar o agregar elementos en masa, debemos darle permiso a Laravel mediante la manipulacion de la
+propiedad fillable en la clase Model. Existen tambien una funcion que nos permite hacer un borrado tipo Papelera de Reciclaje de Windows, es llamada Soft Delete. 
+Para implementar dicha funcion, debemos importar la clase SoftDelete en la clase Modelo, posteriormente agregar un nuevo campo a nuestra tabla llamado 'deleted_at', 
+teniendo en cuenta la funcionalidad del comando (23), en el nuevo archivo damos el campo de $table->softDeletes(); y luego ejecutamos el comando (21)
