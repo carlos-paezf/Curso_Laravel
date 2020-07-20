@@ -61,7 +61,7 @@ Equipo --> Configuracion avanzada del sistema --> Variables de entorno --> Varia
 para instalar Laravel nos dirigimos al directorio de Homestead y usamos el comando (9) para levantar la maquina virtual. Luegos nos validamos con el ssh con el 
 comando (10) y alli dentro ingresamos a la carpeta 'code' ubicada en el directorio contenedor del directorio Homestead. Ingresamos el comando:
 
-	composer create-project laravel/laravel <nombreArchivo>		(13)
+	vagrant@homestead:~/code$ composer create-project laravel/laravel <nombreArchivo>		(13)
 
 Luego de crear el proyecto modificamos el archivo host. Para ellos aplicamos los siguientes pasos: nos dirigimos a C:/Windows/System32/drives/etc, alli abrimos el 
 archivo host con permisos de administrador desde el bloc de notas, en la ultima linea agregamos la IP que aparece en el archivo Homestead.yaml y la registramos 
@@ -69,11 +69,11 @@ bajo el nombre de homestead.test y reiniciamos el equipo.
 
 Para hacer la instalacion desde Laravel installer, ingresamos el siguiente comando: 
 
-	composer global require "laravel/installer"			(14)
+	vagrant@homestead:~/code$ composer global require "laravel/installer"				(14)
 
 Y luego creamos un blog mediante el comando:
 
-	laravel new <nombreArchivo>
+	vagrant@homestead:~/code$ laravel new <nombreArchivo>
 
 		-------------------------------------------------------------------------------------------------------------------
 	       |   Cada vez que vayamos a trabajar en nuestro proyecto, requerimos ejecutar el comando (9) en nuestro Git Bash	   |
@@ -89,26 +89,76 @@ Globales.
 Los controladores los podemos encontrar en el archivo <Proyecto>/app/Http/Controllers. Cuando creamos nuestros propios controladores, por convencion hacemos uso del 
 formato de nomenclatura <Funcionalidad>Controller.php. Para crear un controlador en el directorio de nuestro proyecto, ingresamos en el Bash el siguiente comando:
 
-	php artisan make:controller <Nombre>Controller			(15)
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:controller <Nombre>Controller			(15)
 
 Para enlazar el controlador con nuestras rutas, ingresamos al archivo <Proyecto>/routes/web.php y creamos una ruta con la estructura 
 <ClaseRoute>Route::<metodoEstático>get ('<Url>','<NombreController>@<funcion>');    Tambien podemos crear controladores con recursos basicos con el comando en Bash:
 
-	php artisan make:controller --resource <Nombre>Controller	(16)
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:controller --resource <Nombre>Controller		(16)
 
 Las vistas las encontramos en el archivo <Proyecto>/resources/views, desde alli podemos realizar los cambios que sean necesarios. Comunmente su extension es .blade.php
 Si queremos ver todas las URLs creadas, podemos escribir en consola el comando:
 
-	php artisan route:list
+	vagrant@homestead:~/code/<Proyecto>$ php artisan route:list					(17)
 
 En ocasiones, cada vez que creamos un nuevo proyecto, ademas de definirlo en el sector "sites" del archivo Homestead.yaml, debemos ingresar un comando en consola para
 permitir que la maquina virtual reconozca la nueva direccion, cualquiera de los comandos siguientes debe hacer efecto:
 
-	vagrant up --provision
-	vagrant reload --provision
+	vagrant up --provision			(18a)
+	vagrant reload --provision		(18b)
 
 Ahora bien, cuando queremos agregar formatos Bootstrap a nuestro proyecto, podemos ingresar a la pagina oficial y copiar los enlaces para mantener el formato en linea,
 o descargar las librerias y agregarlas al proyecto y de esta forma tener la interaccion constante con el proyecto. Tambien, en la pagina oficial encontramos una gran
 variedad de ejemplos de componentes, que nos permiten entender el funcionamiento de los mismos. 
 
 Blade es un motor o constructor de plantillas incluido en Laravel, permite crear vista de manera facil y sencilla, se reutiliza el codigo y se usa la modularizacion.
+
+Para el manejo de BBDD en Laravel, recordar que el Modelo se encarga de hacer las peticiones a la base de Datos. Los archivos de configuracion de las BBDD se encuentran
+en <Proyecto>/config/database.php tambien en <Proyecto>/.env y <Proyecto>/.env.example La diferencia entre el archivo .env y el archivo .env.example, es que el primero
+perimte trabajar en local protegion informacion sensible, y el segundo permite trabajar en remoto con un grupo colaborador. Por defecto, la base de datos que esta 
+configurada se llama 'homestead' y la contraseña es 'secret'. Podemos acceder a la base de datos mediante el comando:
+
+	vagrant@homestead:~$ mysql -u <bbdd> -p				(19)
+
+Desde la consola de mysql podemos observar las bases de datos con el comando:
+
+	mysql> show databases;						(20)
+
+Para crear tablas en las bases de datos debemos seguir un protocolo de 3 pasos: Crear un archivo migrate, configurar el archivo, Ejecutar el siguiente comando:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan migrate					(21)
+
+Si queremos tener una interfaz grafica para observar la estructura de la BBDD, procedemos a descargar phpMyAdmin en el directorio code, configuramos el archivo
+Homestead.yaml agregando un nuevo site con su respetivo map y to. Luego configuramos el archivo hosts como se explica en el parrafo siguiente al comando (13) y alli 
+agregamos una nueva url con el nombre phpmyadmin pero con la misma ip de homestead.test. Luego ejecutamos el comando (18a).
+Para crear nuestro propio archivo migrate, ingresamos el siguiente comando:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:migration create_<nombre_tabla>_table --create=<nombreTabla>			(22)
+
+Desde dicho archivo migrate, podemos crear los campos que queremos que aparezcan en la BBDD. Para retrodecer un paso en la migracion y deshacerla, ya sea para agregar
+o modificar algun campo, mientras la tabla este sin registros, ingresamos el siguiente comando:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan migrate:rollback				(22)
+
+Si queremos agregar un nuevo campo en la tabla que tiene elementos, debemos crear un nuevo archivo de migracion para modificiacion con el comando:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:migration <nombre_distintivo_> --table=<nombreTabla>				(23)
+
+Si queremos eliminar todas las migraciones ingresamos el comando:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan migrate:reset					(24)
+
+Tambien podemos cargar todas las modificaciones de los campos a las tablas que esten vacias ejecutando el comando:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan migrate:refresh				(25)
+
+Para comprobar si los archivos migrate ya han sido migrados a la BBDD, ingresamos el comando:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan migrate:status					(26)
+
+Para manipular los registros en las BBDD existen 2 maneras. Por medio de Row SQL Query y metodos estaticos de la interfaz DB para cada una de las instrucciones del CRUD
+(DB::insert DB::select DB::update DB::delete), no es un manera recomenda, por ello esta el segundo camino. Por medio de ORM Eloquent, el cual es una capa entre el
+usuario y la base de datos. ORM (Mapeo Objeto Relacional o Object-Relational Mapping) es uno de los metodos mas comodos, practicos y recomendados. 
+
+Para manipular los registros por medio de Row SQL Query, debemos ingresar una nueva ruta, acompañada de una funcion anonima, en la cual se hara uso de la interfaz DB, 
+pasando los parametros requeridos dentro de un array.
