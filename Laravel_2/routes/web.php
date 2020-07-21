@@ -53,7 +53,7 @@ Route::get('/delete', function(){
 
 
 
-/*      ORM Eloquent        */
+/*      ORM Eloquent
 use App\Article;
 
 Route::get('/select', function(){
@@ -126,4 +126,51 @@ Route::get('/forceDelete', function(){
     $article = Article::onlyTrashed()
                         ->where('id',4)
                         ->forceDelete();
+});
+*/
+
+
+
+/*      Relaciones entre tablas       */
+use App\Client;
+use App\Article;
+use App\Role;
+use App\Opinion;
+
+Route::get('/client/{id}/article', function($id){
+    return Client::find($id)->article;
+});
+Route::get('/article/{id}/client', function($id){
+    return Article::find($id)->client;
+});
+Route::get('/{id}/articles', function($id){
+    $articles = Client::find($id)->articles
+                                ->where('made_in', 'Japon');
+    foreach ($articles as $article) {
+        echo $article->name_article . "<br>";
+    }
+});
+Route::get('/client/{id}/role', function($id){
+    $client = Client::find($id);
+    foreach ($client->roles as $role) {
+        return $role->name_role;
+    }
+});
+Route::get('/role/{id}/client', function($id){
+    $role = Role::find($id);
+    foreach ($role->clients as $client) {
+        echo $client->name_client . "<br>";
+    }
+});
+Route::get('/opinionsClient', function(){
+    $client = Client::find(2);
+    foreach ($client->opinions as $opinion) {
+        return $opinion->opinion;
+    }
+});
+Route::get('/opinionsArticle', function(){
+    $article = Article::find(2);
+    foreach ($article->opinions as $opinion) {
+        return $opinion->opinion;
+    }
 });

@@ -23,4 +23,15 @@ class Article extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    /*Relacion One to One Inverse*/
+    public function client(){
+        return  $this->belongsTo('App\Client');
+    }
+
+    /*Relacion Polimorfica*/
+    public function opinions(){
+        return $this->morphMany('App\Opinion', 'opinion');
+    }
+
 }
