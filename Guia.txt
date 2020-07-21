@@ -142,7 +142,7 @@ o modificar algun campo, mientras la tabla este sin registros, ingresamos el sig
 
 Si queremos agregar un nuevo campo en la tabla que tiene elementos, debemos crear un nuevo archivo de migracion para modificiacion con el comando:
 
-	vagrant@homestead:~/code/<Proyecto>$ php artisan make:migration <nombre_distintivo_> --table="<nombreTabla>"				(23)
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:migration add_<nombre_distintivo_> --table="<nombreTabla>"			(23)
 
 Si queremos eliminar todas las migraciones ingresamos el comando:
 
@@ -173,4 +173,14 @@ debemos primero llamar la clase, por medio de la linea 'use App\<NombreModel>'. 
 documentacion un listado de metodos que podemos emplear. Al intentar borrar o agregar elementos en masa, debemos darle permiso a Laravel mediante la manipulacion de la
 propiedad fillable en la clase Model. Existen tambien una funcion que nos permite hacer un borrado tipo Papelera de Reciclaje de Windows, es llamada Soft Delete. 
 Para implementar dicha funcion, debemos importar la clase SoftDelete en la clase Modelo, posteriormente agregar un nuevo campo a nuestra tabla llamado 'deleted_at', 
-teniendo en cuenta la funcionalidad del comando (23), en el nuevo archivo damos el campo de $table->softDeletes(); y luego ejecutamos el comando (21)
+teniendo en cuenta la funcionalidad del comando (23), en el nuevo archivo damos el campo de $table->softDeletes(); y luego ejecutamos el comando (21).
+
+En base de datos, para relacionar 2 tablas, es necesario tener un campo en comun, de este manera podemos manejar el concepto de llave primaria y llave foranea. Para
+crear una tabla, migracion y modelo a la vez, usamos alguno de los siguientes comandos:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:model <NombreModeloSingular> --migration						(28a)
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:model <NombreModeloSingular> -m							(28b)
+
+Cuando tenemos presente una relacion varios a varios, o muchos a muchos, debemos dar lugar a una tercera tabla llamada 'tabla de rompimiento' o 'pivot'. Comunmente la
+nomenclatura para el pivot se hace alafabeticamente segun el nombre de los modelos. 
+Las relaciones polimórficas permiten que un modelo pertenezca a más de un solo modelo en una sola asociación. 
