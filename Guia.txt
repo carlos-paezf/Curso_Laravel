@@ -183,4 +183,13 @@ crear una tabla, migracion y modelo a la vez, usamos alguno de los siguientes co
 
 Cuando tenemos presente una relacion varios a varios, o muchos a muchos, debemos dar lugar a una tercera tabla llamada 'tabla de rompimiento' o 'pivot'. Comunmente la
 nomenclatura para el pivot se hace alafabeticamente segun el nombre de los modelos. 
-Las relaciones polimórficas permiten que un modelo pertenezca a más de un solo modelo en una sola asociación. 
+Las relaciones polimórficas permiten que un modelo pertenezca a más de un modelo en una sola asociación. 
+
+Tinker es una herramienta que nos permite interartuar con las bases de datos utilizando Eloquent, sirve especialmente para el testeo. Tambien permite insertar registros
+comprobar relaciones, crear obejetos nuevos y ver como quedarian, realizar acciones CRUD con la informacion. Para ingresar a tinker, ingresamo el comando:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan tinker						(29)
+
+Por ejemplo, para ingresar un nuevo elemento en masa, ingresamos la siguiente sintaxis:
+
+	>>> $variable = App\<Modelo>::create(["<Campo1Tabla>"=>"<valor>, "<Campo2Tabla>"=>"<valor>" ,...]);

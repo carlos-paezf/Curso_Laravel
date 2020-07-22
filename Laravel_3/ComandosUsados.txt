@@ -1,0 +1,21 @@
+		-------------Creacion Proyecto----------------
+Realizar cambio de directorio en la seccion 'sites' de Homestead.yaml
+
+vagrant@homestead:~/code$	composer global require laravel/installer
+vagrant@homestead:~/code$	laravel new Laravel_3
+
+
+		---------------------------
+vagrant@homestead:~/code/Laravel_3$	php artisan make:migration create_products_table --create=products
+vagrant@homestead:~/code/Laravel_3$	php artisan migrate
+vagrant@homestead:~/code/Laravel_3$	php artisan make:controller --resource ProductsController
+vagrant@homestead:~/code/Laravel_3$	php artisan route:list
+vagrant@homestead:~/code/Laravel_3$	php artisan make:model Product
+
+ALTER TABLE `products` 
+	CHANGE `article_name` `article_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL, 
+	CHANGE `section` `section` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL, 
+	CHANGE `price` `price` INT(11) NULL, 
+	CHANGE `date` `date` DATE NULL, 
+	CHANGE `made_in` `made_in` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;
+
