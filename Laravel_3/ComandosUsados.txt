@@ -26,3 +26,8 @@ ALTER TABLE `products`
 	CHANGE `price` `price` INT(11) NULL,
 	CHANGE `date` `date` DATE NULL,
 	CHANGE `made_in` `made_in` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;
+
+
+		--------------Laravel Collective----------
+vagrant@homestead:~/code/Laravel_3$	composer update
+vagrant@homestead:~/code/Laravel_3$	composer require laravelcollective/html
