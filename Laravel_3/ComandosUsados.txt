@@ -1,8 +1,16 @@
-		-------------Creacion Proyecto----------------
-Realizar cambio de directorio en la seccion 'sites' de Homestead.yaml
+		-------------Desde Git Bash-------------------
+~$ 	cd Homestead
+~/Homestead$	vagrant up
+~/Homestead$	vagrant ssh
 
+
+		-------------Creacion Proyecto----------------
 vagrant@homestead:~/code$	composer global require laravel/installer
 vagrant@homestead:~/code$	laravel new Laravel_3
+vagrant@homestead:~/code$	exit
+	Realizar cambio de directorio en la seccion 'sites' de Homestead.yaml
+~/Homestead$	vagrant reload --provision
+~/Homestead$	vagrant ssh
 
 
 		---------------------------
@@ -12,10 +20,9 @@ vagrant@homestead:~/code/Laravel_3$	php artisan make:controller --resource Produ
 vagrant@homestead:~/code/Laravel_3$	php artisan route:list
 vagrant@homestead:~/code/Laravel_3$	php artisan make:model Product
 
-ALTER TABLE `products` 
-	CHANGE `article_name` `article_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL, 
-	CHANGE `section` `section` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL, 
-	CHANGE `price` `price` INT(11) NULL, 
-	CHANGE `date` `date` DATE NULL, 
+ALTER TABLE `products`
+	CHANGE `article_name` `article_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	CHANGE `section` `section` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+	CHANGE `price` `price` INT(11) NULL,
+	CHANGE `date` `date` DATE NULL,
 	CHANGE `made_in` `made_in` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;
-
