@@ -5,14 +5,21 @@
     @endsection
 
     @section("content")
-        <form method="post" action="/products/{{$product->id}}">
+        <!--<form method="post" action="/products/{{$product->id}}">-->
+        {!! Form::model($product, [
+            'method' => 'POST',
+            'action' => [
+                        'ProductsController@update',
+                        $product->id,
+                ]
+            ]) !!}
             <table>
                 <tr>
                     <td>Nombre:&nbsp;</td>
                     <td>
                         <input type="text" name="article_name" value="{{$product->article_name}}">
                         {{csrf_field()}}
-                        <input type="hidden" name="_method" value="PUT">
+                        <!--<input type="hidden" name="_method" value="PUT">-->
                     </td>
                 </tr>
 
@@ -54,13 +61,22 @@
                 </tr>
 
             </table>
-        </form>
+        <!--</form>-->
+        {!! Form::close() !!}
 
-        <form method="post" action="/products/{{$product->id}}">
+
+        <!--<form method="post" action="/products/{{$product->id}}">-->
+        {!! Form::open(['method' => 'DELETE',
+            'action' => [
+                        'ProductsController@destroy',
+                        $product->id,
+                ]
+            ]) !!}
             {{csrf_field()}}
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="Eliminar registro">
-        </form>
+        <!--</form>-->
+        {!! Form::close() !!}
     @endsection
 
     @section("footer")

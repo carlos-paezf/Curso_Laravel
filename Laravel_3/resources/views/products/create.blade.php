@@ -59,8 +59,10 @@
                 </tr>
 
                 <tr>
-                    <td><input type="submit" name="send"  value="Enviar"></td>
-                    <td><input type="reset" name="delete"  value="Borrar"></td>
+                    <!--<td><input type="submit" name="send"  value="Enviar"></td>-->
+                    {!! Form::submit('Enviar') !!}
+                    <!--<td><input type="reset" name="delete"  value="Borrar"></td>-->
+                    {!! Form::reset('Limpiar Registros') !!}
                 </tr>
 
             </table>
