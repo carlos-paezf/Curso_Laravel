@@ -193,3 +193,7 @@ comprobar relaciones, crear obejetos nuevos y ver como quedarian, realizar accio
 Por ejemplo, para ingresar un nuevo elemento en masa, ingresamos la siguiente sintaxis:
 
 	>>> $variable = App\<Modelo>::create(["<Campo1Tabla>"=>"<valor>, "<Campo2Tabla>"=>"<valor>" ,...]);
+
+LARAVEL COLLECTIVE:
+Es un proyecto desarrollado por la comunidad de desarrolladores de Laravel. Sirve para implemetar en los proyectos Laravel, funcionalidades muy utilizadas que facilitan
+el trabajo 
