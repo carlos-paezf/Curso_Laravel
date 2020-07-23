@@ -82,7 +82,7 @@ class ProductsController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->update($request->all());
-        return redirect("/products");
+        return redirect('/products');
     }
 
     /**
@@ -93,6 +93,8 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        return view('products.delete');
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect('/products');
     }
 }

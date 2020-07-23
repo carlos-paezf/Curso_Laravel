@@ -50,10 +50,16 @@
 
                 <tr>
                     <td><input type="submit" name="send"  value="Modificar"></td>
-                    <td><input type="reset" name="delete"  value="Borrar"></td>
+                    <td><input type="reset" name="delete"  value="Limpiar Registros"></td>
                 </tr>
 
             </table>
+        </form>
+
+        <form method="post" action="/products/{{$product->id}}">
+            {{csrf_field()}}
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Eliminar registro">
         </form>
     @endsection
 
