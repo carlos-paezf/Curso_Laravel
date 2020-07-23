@@ -15,7 +15,11 @@
             </tr>
             @foreach($products as $product)
                 <tr>
-                    <td>{{$product->article_name}}</td>
+                    <td>
+                        <a href="{{route('products.edit', $product->id)}}">
+                            {{$product->article_name}}
+                        </a>
+                    </td>
                     <td>{{$product->section}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->date}}</td>
