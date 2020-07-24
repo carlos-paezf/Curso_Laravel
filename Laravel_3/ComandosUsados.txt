@@ -31,3 +31,14 @@ ALTER TABLE `products`
 		--------------Laravel Collective----------
 vagrant@homestead:~/code/Laravel_3$	composer update
 vagrant@homestead:~/code/Laravel_3$	composer require laravelcollective/html
+
+
+		--------------Validacion------------------
+vagrant@homestead:~/code/Laravel_3$ php artisan make:request CreateProductsRequest
+
+		--------------Añadir archivos-------------
+vagrant@homestead:~/code/Laravel_3$ php artisan make:migration add_files --table=products
+vagrant@homestead:~/code/Laravel_3$ php artisan migrate
+
+
+ALTER TABLE `products` CHANGE `file_route` `file_route` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;
