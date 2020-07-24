@@ -196,4 +196,8 @@ Por ejemplo, para ingresar un nuevo elemento en masa, ingresamos la siguiente si
 
 LARAVEL COLLECTIVE:
 Es un proyecto desarrollado por la comunidad de desarrolladores de Laravel. Sirve para implemetar en los proyectos Laravel, funcionalidades muy utilizadas que facilitan
-el trabajo 
+el trabajo.
+
+Para la validacion de formularios, podemos crear un archivo donde pondremos nuestras reglas. Para ello ingresamos el siguiente comando en el Bash:
+
+	vagrant@homestead:~/code/<Proyecto>$ php artisan make:request <NombreArchivo>			(30)
