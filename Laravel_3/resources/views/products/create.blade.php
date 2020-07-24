@@ -6,7 +6,7 @@
 
     @section("content")
         <!--<form method="post" action="/products">-->
-        {!! Form::open(['url' => '/products', 'method' => 'post']) !!}
+        {!! Form::open(['url' => '/products', 'method' => 'post', 'files' => true]) !!}
             <table>
                 <tr>
                     <!--<td>Nombre:&nbsp;</td>-->
@@ -65,9 +65,26 @@
                     {!! Form::reset('Limpiar Registros') !!}
                 </tr>
 
+                <tr>
+                    <td colspan="2">
+                        {!! Form::file('file') !!}
+                    </td>
+                </tr>
+
             </table>
         <!--</form>-->
         {!! Form::close() !!}
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
     @endsection
 
     @section("footer")

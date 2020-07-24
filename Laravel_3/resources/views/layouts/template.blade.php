@@ -19,8 +19,12 @@
                 background-color: #fff;
                 color: #636b6f;
             }
-            .content form, table{
+            .content form{
                 width: 500px;
+                margin: 0 auto;
+            }
+            .content table{
+                width: 800px;
                 margin: 0 auto;
             }
             .footer{

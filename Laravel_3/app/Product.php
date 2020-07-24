@@ -12,5 +12,6 @@ class Product extends Model
         "price",
         "date",
         "made_in",
+        "file_route",
     ];
 }

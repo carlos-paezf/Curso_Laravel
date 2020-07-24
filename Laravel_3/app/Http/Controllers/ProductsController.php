@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Http\Requests\CreateProductsRequest;
 
 class ProductsController extends Controller
 {
@@ -34,8 +35,17 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductsRequest $request)
     {
+        /*
+        $request->validate([
+            'article_name' => 'required',
+            'section' => 'required',
+            'made_in' => 'required',
+        ]);
+        */
+
+        /*
         $product = new Product;
 
         $product->article_name = $request->article_name;
@@ -45,6 +55,15 @@ class ProductsController extends Controller
         $product->made_in = $request->made_in;
 
         $product->save();
+        */
+
+        $input = $request->all();
+        if($file = $request->File('file')){
+            $name = $file->getClientOriginalName();
+            $file->move(public_path().'/images/', $name);
+            $input['file_route'] = $name;
+        }
+        Product::create($input);
     }
 
     /**
