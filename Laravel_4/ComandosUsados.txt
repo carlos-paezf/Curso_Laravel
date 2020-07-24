@@ -1,0 +1,22 @@
+-------------Desde Git Bash-------------------
+~$ 	cd Homestead
+~/Homestead$	vagrant up
+~/Homestead$	vagrant ssh
+
+
+-------------Creacion Proyecto----------------
+vagrant@homestead:~/code$	composer global require laravel/installer
+vagrant@homestead:~/code$	laravel new Laravel_4
+vagrant@homestead:~/code$	exit
+Realizar cambio de directorio en la seccion 'sites' de Homestead.yaml
+~/Homestead$	vagrant reload --provision
+~/Homestead$	vagrant ssh
+
+
+------------------------------
+vagrant@homestead:~/code/Laravel_4$	php artisan migrate
+
+
+----------Login...............
+vagrant@homestead:~/code/Laravel_4$	composer require laravel/ui
+vagrant@homestead:~/code/Laravel_4$	php artisan ui vue --auth
