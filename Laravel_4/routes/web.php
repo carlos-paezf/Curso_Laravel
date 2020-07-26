@@ -14,9 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    /*if(Auth::check()){
+        return "Ya has hecho el Login";
+    }else{
+        return "No has hecho Login";
+    }*/
+
+    /*$user = Auth::user();
+    if ($user->isAdmin()){
+        echo "ADMIN";
+    }
+    else{
+        echo "USER";
+    }*/
     return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin', 'AdminController@index');

@@ -1,0 +1,30 @@
+Para la version 7.x, si queremos un programa con sistema de Login, ingresamos el siguiente
+comando para crear el proyecto
+
+vagrant@homestead:~/code$   composer require laravel/ui                     (1)
+vagrant@homestead:~/code$   laravel new Laravel_4 --auth                    (2)
+
+Para algunas versiones mas antiguas, es necesario ingresar un comando diferente para activar
+las funciones de autentificación
+
+vagrant@homestead:~/code$   php artisan make:auth                           (3)
+
+
+Dentro de mi proyecto, aplico los (1) y (2), posteriormente realizo la migracion de las tablas
+correspondientes con el siguiente comando:
+
+vagrant@homestead:~/code/Laravel_4$     php artisan migrate                 (4)
+
+
+Para los roles de usuarios ingreso el siguiente comando:
+
+vagrant@homestead:~/code/Laravel_4$     php artisan make:middleware RoleMiddleware          (5)
+vagrant@homestead:~/code/Laravel_4$     php artisan make:model Role -m                      (6)
+vagrant@homestead:~/code/Laravel_4$     php artisan migrate:refresh         (7)
+ALTER TABLE `users` CHANGE `role_id` `role_id` INT(11) NULL;
+INSERT INTO `roles` (`id`, `name_role`, `created_at`, `updated_at`)
+            VALUES (NULL, 'Admin', NULL, NULL),
+                   (NULL, 'User', NULL, NULL);
+UPDATE `users` SET `email_verified_at` = NULL, `role_id` = '1' WHERE `users`.`id` = 1;
+vagrant@homestead:~/code/Laravel_4$     php artisan make:middleware isAdminMiddleware       (8)
+vagrant@homestead:~/code/Laravel_4$ php artisan make:controller AdminController             (9)
