@@ -11,6 +11,16 @@
 |
 */
 
+use Illuminate\Support\Facades\Mail;
+
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    $data = [
+        'title' => 'Curso en Laravel',
+        'content' => 'Prueba de envio'
+    ];
+    Mail::send('email.test', $data, function($message){
+        $message->to('cursoendjango@gmail.com', 'David')
+                ->subject('Mensaje de Prueba');
+    });
 });
