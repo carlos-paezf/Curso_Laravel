@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+    * Funcion asignada a los roles de usarios
+    *
+    * Returna la relacion 1-* (Un usuario solo tiene un rol
+    *                           un rol tiene varios usuarios)
+    */
+    public function role(){
+        return $this->belongsTo('App\Role');
+    }
 }
