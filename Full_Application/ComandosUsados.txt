@@ -1,0 +1,43 @@
+-------Creacion del Proyecto
+vagrant@homestead:~/code$   composer create-project --prefer-dist laravel/laravel Full_Application "5.8.*"
+
+
+-------Modificiacion en el archivo Homestead.yaml
+sites:
+    - map: homestead.test
+      to: /home/vagrant/code/Full_Application/public
+
+
+-------Aplicar Cambios
+vagrant@homestead:~/code$   exit
+$ vagrant reload --provision
+$ vagrant ssh
+vagrant@homestead:~$ cd code/Full_Application/
+
+
+-------Configuracion de la BBDD en el archivo .env
+DB_DATABASE=FullApplication
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+
+
+-------Primera Migracion
+vagrant@homestead:~/code/Full_Application$  php artisan migrate
+
+
+-------Login y Register
+vagrant@homestead:~/code/Full_Application$  php artisan make:auth
+
+
+-------Roles de usuario
+vagrant@homestead:~/code/Full_Application$  php artisan make:model Role -m
+vagrant@homestead:~/code/Full_Application$  php artisan migrate:refresh
+INSERT INTO `roles` (`id`, `role_name`, `created_at`, `updated_at`)
+    VALUES (NULL, 'Admin', NULL, NULL),
+           (NULL, 'Author', NULL, NULL),
+           (NULL, 'Subscriber', NULL, NULL);
+ALTER TABLE `users` CHANGE `role_id` `role_id` INT(11) NULL;
+
+
+-------Asignacion manual de rol a usuario
+UPDATE `users` SET `role_id` = '1', `email_verified_at` = NULL WHERE `users`.`id` = 1;
