@@ -1,3 +1,19 @@
+-------Aplicacion Completa:
+Administracion de usuarios:
+    -Agregar, modificar y eliminar usuarios
+    -Formularios
+    -Zona Admin
+Creacion de Post
+    -Creacion de Post con imagenes
+    -Agregar, modificar y eliminar imagenes
+    -Categorias
+Comentarios
+    -Mostrar, aprobar y eliminar comentarios
+    -Respuestas
+Paginacion
+    -URL Friendly
+
+
 -------Creacion del Proyecto
 vagrant@homestead:~/code$   composer create-project --prefer-dist laravel/laravel Full_Application "5.8.*"
 
@@ -41,3 +57,36 @@ ALTER TABLE `users` CHANGE `role_id` `role_id` INT(11) NULL;
 
 -------Asignacion manual de rol a usuario
 UPDATE `users` SET `role_id` = '1', `email_verified_at` = NULL WHERE `users`.`id` = 1;
+
+
+-------Controlador con funciones CRUD
+vagrant@homestead:~/code/Full_Application$  php artisan make:controller --resource AdminUsersController
+
+
+-------Listar rutas de la Aplicacion
+vagrant@homestead:~/code/Full_Application$  php artisan route:list
+
+
+-------Vistas para la Aplicacion, Usuarios
+Full_Application\resources\views\admin\users
+
+
+-------Laravel Collective
+vagrant@homestead:~/code/Full_Application$  composer require "laravelcollective/html":"^5.4.0"
+En el archivo Full_Application\config\app.php ingresar nuevos elementos en los arrays respectivos
+'providers' => [
+    // ...
+        Collective\Html\HtmlServiceProvider::class,
+    // ...
+],
+'aliases' => [
+    // ...
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+    // ...
+],
+
+
+-------Modelo para fotos
+vagrant@homestead:~/code/Full_Application$  php artisan make:model Photo -m
+vagrant@homestead:~/code/Full_Application$  php artisan migrate
