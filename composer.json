@@ -1,5 +1,6 @@
 {
     "require": {
-        "laravel/ui": "^2.1"
+        "laravel/ui": "^2.1",
+        "guzzlehttp/guzzle": "^7.0"
     }
 }
