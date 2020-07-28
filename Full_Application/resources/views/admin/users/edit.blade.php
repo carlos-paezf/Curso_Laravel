@@ -6,7 +6,40 @@
     </head>
 
     <body>
-        <h1>Página de Creación, Admin</h1>
+        <h1>Página de Edicion, Admin</h1>
+
+        {!! Form::model($user, ['method' => 'PATCH',
+                                'action' => ['AdminUsersController@update',
+                                                $user->id,],
+                                'files' => true]) !!}
+            <table>
+                <tr>
+                    <td>{!! Form::label('role_id', 'Role ID:') !!}</td>
+                    <td>{!! Form::text('role_id') !!}</td>
+                </tr>
+                <tr>
+                    <td>{!! Form::label('name', 'Name:') !!}</td>
+                    <td>{!! Form::text('name') !!}</td>
+                </tr>
+                <tr>
+                    <td>{!! Form::label('email', 'Email:') !!}</td>
+                    <td>{!! Form::text('email') !!}</td>
+                </tr>
+                <tr>
+                    <td>{!! Form::label('email_verified_at', 'Email Verified at:') !!}</td>
+                    <td>{!! Form::text('email_verified_at') !!}</td>
+                </tr>
+                <tr>
+                    <td>{!! Form::label('photo_id', 'Photo:') !!}</td>
+                    <td>{!! Form::file('photo_id') !!}
+                </tr>
+                <tr>
+                    <td>{!! Form::submit('Actualizar Usuario') !!}</td>
+                    <td>{!! Form::reset('Limpiar') !!}</td>
+                </tr>
+            </table>
+        {!! Form::close() !!}
+
     </body>
 
 </html>
