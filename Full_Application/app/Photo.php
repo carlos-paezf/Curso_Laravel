@@ -8,5 +8,5 @@ class Photo extends Model
 {
     protected $fillable = [
         'photo_route',
-    ]
+    ];
 }

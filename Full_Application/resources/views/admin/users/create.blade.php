@@ -8,7 +8,7 @@
     <body>
         <h1>Página de Creación, Admin</h1>
 
-        {!! Form::open(['method' => 'POST', 'action' => 'AdminUsersController@store']) !!}
+        {!! Form::open(['method' => 'POST', 'action' => 'AdminUsersController@store', 'files' => true]) !!}
             <table>
                 <tr>
                     <td>{!! Form::label('role_id', 'Role ID:') !!}</td>
@@ -24,15 +24,15 @@
                 </tr>
                 <tr>
                     <td>{!! Form::label('email_verified_at', 'Email Verified at:') !!}</td>
-                    <td>{!! Form::text('role_id') !!}</td>
+                    <td>{!! Form::text('email_verified_at') !!}</td>
                 </tr>
                 <tr>
                     <td>{!! Form::label('password', 'Password:') !!}</td>
                     <td>{!! Form::text('password') !!}</td>
                 </tr>
                 <tr>
-                    <td>{!! Form::label('photo_route', 'Photo:') !!}</td>
-                    <td>{!! Form::file('photo_route') !!}
+                    <td>{!! Form::label('photo_id', 'Photo:') !!}</td>
+                    <td>{!! Form::file('photo_id') !!}
                 </tr>
                 <tr>
                     <td>{!! Form::submit('Crear Usuario') !!}</td>
