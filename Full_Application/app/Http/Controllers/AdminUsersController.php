@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Photo;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -111,6 +112,7 @@ class AdminUsersController extends Controller
            $original_file = public_path() . "/images/" . $original_route;
             unlink($original_file);
        }
+       Session::flash('user_destroy', 'El Usuario a sido eliminado con exito');
        $user->delete();
        return redirect('/admin/users');
     }

@@ -7,6 +7,11 @@
     </head>
 
     <body>
+
+        @if(Session::has('user_destroy'))
+            <p class="bg-danger">{{session('user_destroy')}}</p>
+        @endif
+
         <h1 style="text-align:center; margin:50px">Página de Bienvenida, Admin</h1>
 
         <table width="1200" class="table">
