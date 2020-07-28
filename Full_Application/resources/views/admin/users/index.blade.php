@@ -21,7 +21,7 @@
             @if($users)
                 @foreach ($users as $user)
                     <tr>
-                        <td>{{$user->id}}</td>
+                        <td><a href="{{route('users.edit', $user->id)}}">{{$user->id}}</a></td>
                         <td>{{$user->role_id}} {{$user->role ? $user->role->role_name:'-'}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
@@ -30,7 +30,7 @@
                         @if($user->photo)
                             <td><img src="/images/{{$user->photo ? $user->photo->photo_route:'-'}}" width="100" /></td>
                         @else
-                            <td>Sin foto</td>
+                            <td><img src="/images/user.png" width="25" /></td>
                         @endif
                     </tr>
                 @endforeach
