@@ -1,17 +1,20 @@
 -------Aplicacion Completa:
-Administracion de usuarios:
-    -Agregar, modificar y eliminar usuarios
-    -Formularios
-    -Zona Admin
-Creacion de Post
-    -Creacion de Post con imagenes
-    -Agregar, modificar y eliminar imagenes
-    -Categorias
-Comentarios
-    -Mostrar, aprobar y eliminar comentarios
-    -Respuestas
-Paginacion
-    -URL Friendly
+Items Completados:
+    Administracion de usuarios:
+        -Agregar, modificar y eliminar usuarios
+        -Formularios
+Items sin Completar:
+    Administracion de usuarios:
+        -Zona Admin
+    Creacion de Post
+        -Creacion de Post con imagenes
+        -Agregar, modificar y eliminar imagenes
+        -Categorias
+    Comentarios
+        -Mostrar, aprobar y eliminar comentarios
+        -Respuestas
+    Paginacion
+        -URL Friendly
 
 
 -------Creacion del Proyecto
@@ -88,5 +91,9 @@ En el archivo Full_Application\config\app.php ingresar nuevos elementos en los a
 
 
 -------Modelo para fotos
-vagrant@homestead:~/code/Full_Application$  php artisan make:model Photo -m
+vagrant@homestead:~/code/Full_Application$  php artisan make:model Photo
+vagrant@homestead:~/code/Full_Application$  php artisan make:migration create_photos_table --create=photos
 vagrant@homestead:~/code/Full_Application$  php artisan migrate
+vagrant@homestead:~/code/Full_Application$  php artisan make:migration add_field_photo_users --table=users
+vagrant@homestead:~/code/Full_Application$  php artisan migrate
+ALTER TABLE `users` CHANGE `photo_id` `photo_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;
